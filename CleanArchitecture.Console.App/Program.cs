@@ -1,15 +1,41 @@
 ﻿using CleanArchitecture.Data;
 using CleanArchitecture.Domain;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 StreamerDbContext dbContext = new();
 
 //await AddNewRecords();
 //QueryStreaming();
-await QueryFilter();
+//await QueryFilter();
+await QueryMethods();
 
 Console.WriteLine("Presione cualquier tecla para terminar el programa");
 Console.ReadKey();
+
+async Task QueryMethods()
+{
+    var streamer = dbContext!.Streamers!;
+
+    //si es nulo dispara un error
+    var firstAsync = await streamer.Where(y => y.Nombre.Contains("a")).FirstAsync();
+
+    //si es nulo devuelve nulo
+    var firstOrDefault1 = await streamer.Where(y => y.Nombre.Contains("a")).FirstOrDefaultAsync();
+
+    //si es nulo devuelve nulo
+    var firstOrDefault2 = await streamer.FirstOrDefaultAsync(y => y.Nombre.Contains("a"));
+
+    //si el resultado tiene mas de un valor dispara una excepcion
+    //si no hay valor tambien
+    var singleAsync = await streamer.Where(x=> x.Id == 1).SingleAsync();
+
+    //siempre devuelve un valor, si no tiene un valor devuelve nulo
+    var singleOrDefaultAsync = await streamer.Where(x => x.Id == 1).SingleOrDefaultAsync();
+
+    //busca por ID
+    var resultado = await streamer.FindAsync(1);
+}
 
 async Task QueryFilter()
 {
