@@ -8,7 +8,7 @@ namespace CleanArchitecture.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=localhost\sqlexpress; 
-                       Initia Catalog=Streamer;Integrated Security=True");
+                       Initial Catalog=Streamer;Integrated Security=True");
         }
 
         public DbSet<Streamer>? Streamers { get; set; }
@@ -20,4 +20,3 @@ namespace CleanArchitecture.Data
 }
 
 
-6 cpitulo
