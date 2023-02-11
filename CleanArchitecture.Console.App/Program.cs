@@ -3,42 +3,57 @@ using CleanArchitecture.Domain;
 
 StreamerDbContext dbContext = new();
 
-Streamer streamer = new()
+//await AddNewRecords();
+
+QueryStreaming();
+
+void QueryStreaming()
 {
-    Nombre = "Amazon Prime",
-    Url = "https://www.amazonprime.com"
+    var streamers = dbContext!.Streamers!.ToList();
+
+    foreach (var streamer in streamers)
+    {
+        Console.WriteLine($"{streamer.Id} - {streamer.Nombre}");
+    }
+}
+
+async Task AddNewRecords()
+{
+    Streamer streamer = new()
+    {
+        Nombre = "disney",
+        Url = "https://www.disney.com"
+    };
+
+    dbContext!.Streamers!.Add(streamer);
+
+    await dbContext.SaveChangesAsync();
+
+    var movies = new List<Video>
+{
+    new Video
+    {
+        Nombre = "La Cenicienta",
+        StreamerId = streamer.Id
+    },
+    new Video
+    {
+        Nombre = "1001 dalmatas",
+        StreamerId = streamer.Id
+    },
+    new Video
+    {
+        Nombre = "El jorobado de Notredame",
+        StreamerId = streamer.Id
+    },
+    new Video
+    {
+        Nombre = "Star Wars",
+        StreamerId = streamer.Id
+    },
 };
 
-dbContext!.Streamers!.Add(streamer);
+    await dbContext.AddRangeAsync(movies);
 
-await dbContext.SaveChangesAsync();
-
-var movies = new List<Video>
-{
-    new Video
-    {
-        Nombre = "Mad Max",
-        StreamerId = streamer.Id
-    },
-    new Video
-    {
-        Nombre = "Batman",
-        StreamerId = streamer.Id
-    },
-    new Video
-    {
-        Nombre = "Crepusculo",
-        StreamerId = streamer.Id
-    },
-    new Video
-    {
-        Nombre = "Citizen Kane",
-        StreamerId = streamer.Id
-    },
-};
-
-await dbContext.AddRangeAsync(movies);
-
-await dbContext.SaveChangesAsync();
-
-capitulo 8
+    await dbContext.SaveChangesAsync();
+}
