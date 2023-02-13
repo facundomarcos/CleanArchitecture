@@ -14,6 +14,18 @@ namespace CleanArchitecture.Data
                 .EnableSensitiveDataLogging();
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //esta declaracion es opcional del fluent API
+            //se usa cuando las clases no siguen las convenciones del EF
+            modelBuilder.Entity<Streamer>()
+                .HasMany(m=>m.Videos)
+                .WithOne(m=>m.Streamer)
+                .HasForeignKey(m=>m.StreamerId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+
         public DbSet<Streamer>? Streamers { get; set; }
 
         public DbSet<Video>? Videos { get; set; }

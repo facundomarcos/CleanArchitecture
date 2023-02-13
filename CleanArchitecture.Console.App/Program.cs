@@ -30,7 +30,6 @@ async Task TrackingAndNotTracking()
 
     }
 
-
 async Task QueryLinq()
 {
     Console.WriteLine($"Ingrese el servicio de streaming");
