@@ -24,6 +24,13 @@ namespace CleanArchitecture.Data
                 .HasForeignKey(m=>m.StreamerId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Video>()
+                .HasMany(m => m.Actores)
+                .WithMany(m => m.Videos)
+                .UsingEntity<VideoActor>(
+                    pt => pt.HasKey(e=> new { e.ActorId,e.VideoId})
+                    );
         }
 
         public DbSet<Streamer>? Streamers { get; set; }
