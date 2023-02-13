@@ -9,10 +9,27 @@ StreamerDbContext dbContext = new();
 //QueryStreaming();
 //await QueryFilter();
 //await QueryMethods();
-await QueryLinq();
+//await QueryLinq();
+await TrackingAndNotTracking();
 
 Console.WriteLine("Presione cualquier tecla para terminar el programa");
 Console.ReadKey();
+
+async Task TrackingAndNotTracking() 
+    {
+        var streamerWithTracking = await dbContext!.Streamers!.FirstOrDefaultAsync(x => x.Id == 1);
+        //NO tracking libera el objeto de la memoria
+        var streamerWithNoTracking = await dbContext!.Streamers!.AsNoTracking().FirstOrDefaultAsync(x => x.Id == 2);
+
+        streamerWithTracking.Nombre = "Netflix Super";
+
+        //no actualiza porque el objeto fue liberado de la memoria
+        streamerWithNoTracking.Nombre = "Amazon Plus";
+
+        await dbContext!.SaveChangesAsync();
+
+    }
+
 
 async Task QueryLinq()
 {
