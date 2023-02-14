@@ -37,6 +37,7 @@ namespace CleanArchitecture.Data
 
         public DbSet<Video>? Videos { get; set; }
 
+        public DbSet<Actor>? Actores { get; set; }
 
     }
 }
