@@ -6,6 +6,8 @@ namespace CleanArchitecture.Application.Contracts.Persistence
 {
     public interface IVideoRepository : IAsyncRepository<Video>
     {
-        Task<IEnumerable<Video>> GetVideoByNombre(string nombreVideo);
+        Task<Video> GetVideoByNombre(string nombreVideo);
+
+        Task<IEnumerable<Video>> GetVideoByUsername(string username);
     }
 }
