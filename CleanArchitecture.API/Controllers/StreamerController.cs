@@ -36,7 +36,7 @@ namespace CleanArchitecture.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id",Name ="DeleteStreamer")]
+        [HttpDelete("{id}",Name ="DeleteStreamer")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
