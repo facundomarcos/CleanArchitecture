@@ -49,6 +49,8 @@ namespace CleanArchitecture.Identity
                 };
             });
 
+            return services;
+
 
 
         }
