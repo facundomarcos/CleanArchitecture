@@ -19,6 +19,8 @@ namespace CleanArchitecture.Infraestructure
             options.UseSqlServer(configuration.GetConnectionString("ConnectionString"))
             );
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             //para que dure el ciclo de vida del pipeline
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
 
